@@ -15,5 +15,5 @@ LEARNING's to be achieved from this project
 -> Learning how to install your custom version of python and its packages
 -> Learning to play with batch files and their use
 -> Creating and using Python Windows Serices and Python DLLs and static libraries
--> Next phase would be learn about python and linux together
+-> Next phase would be learn about python and linux togethers
 
