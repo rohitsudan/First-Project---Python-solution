@@ -18,7 +18,25 @@ for idx,node in enumerate(root):
 ET.register_namespace("", "x-schema:modbus-schema.xml")
 # # print(tree.findall(.//ModbusInfo/..[@ModbusAddress='408906']))
 
-tree.write(os.getcwd() + '\XMLfiles\PM5300.xml',encoding = "utf-8", xml_declaration=True,default_namespace="xmlns",method="xml")
+tree.write(os.getcwd() + '\XMLfiles\PM5300.xml',encoding = "utf-8")
+
+# i have implemented by own version of a xml formatter
+
+f = open(os.getcwd() + '\XMLfiles\PM5300.xml')
+p = open(os.getcwd() + '\XMLfiles\PM5300_back.xml','w')
+
+num_lines = sum(1 for line in open(os.getcwd() + '\XMLfiles\PM5300.xml'))
+
+i=1
+while(i<=num_lines):
+	print >> p , f.readline()
+	i=i+1
+
+f.close()
+p.close()
+
+
+
 
 
 

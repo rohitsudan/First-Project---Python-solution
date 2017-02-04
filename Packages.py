@@ -1,3 +1,4 @@
+import xml.etree.ElementTree as ET
 def _serialize_xml(write, elem, encoding, qnames, namespaces):
     tag = elem.tag
     text = elem.text
