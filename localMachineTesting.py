@@ -1,60 +1,21 @@
-import codecs
-import os
-import shutil
-import xml.etree.ElementTree as ET
-#calling the dependencies required for parsing the XML without the attribute sorting function
-from Packages import *
+# this code here is written for learning about classes
+# learnt from https://www.youtube.com/watch?v=ZDa-Z5JzLYM
 
-#parsing the xml file and wrting the file into XML folder
-tree = ET.parse(os.getcwd() + '\XMLfiles\pm5300masterFile.xml', OrderedXMLTreeBuilder())
-root = tree.getroot()
-for idx,node in enumerate(root):
-    if len(node.attrib.values()) > 2:
-        if node.attrib.values()[2] == '408906':
-            node.set("ModbusAddress","408905")
-            print node.attrib.values()[2]
+# a simple employee class
 
-
-ET.register_namespace("", "x-schema:modbus-schema.xml")
-# # print(tree.findall(.//ModbusInfo/..[@ModbusAddress='408906']))
-
-tree.write(os.getcwd() + '\XMLfiles\PM5300.xml',encoding = "utf-8")
-
-# i have implemented by own version of a xml formatter
-
-f = open(os.getcwd() + '\XMLfiles\PM5300.xml')
-p = open(os.getcwd() + '\XMLfiles\PM5300_back.xml','w')
-
-num_lines = sum(1 for line in open(os.getcwd() + '\XMLfiles\PM5300.xml'))
-
-i=1
-while(i<=num_lines):
-	print >> p , f.readline()
-	i=i+1
-
-f.close()
-p.close()
+class Employee:
+	pass # pass is put to skip the class for now
+	def __init__(self,first_name,last_name,pay):
+		self.first_name = first_name
+		self.last_name = last_name
+		self.pay = pay
+		self.email = first_name + '.' + last_name + '@company.com'
 
 
 
+emp_1 = Employee('Corey','Scfner',50000)
+emp_2 = Employee('rohit','sudan',70000)
 
 
-
-
-
-
-
-
-
-
-    
-        
-            
-            
-
-
-
-
-
-
-
+print(emp_1.email)
+print(emp_2.email)
