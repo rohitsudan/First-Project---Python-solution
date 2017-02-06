@@ -101,16 +101,56 @@ root = tree.getroot()
 for idx,node in enumerate(root):
     if len(node.attrib.values()) > 2:
         if node.attrib.values()[2] == '408906':
-            node.set("ModbusAddress","408905")
+            node.set("ModbusAddress","402401")
             print node.attrib.values()[2]
 
 
 ET.register_namespace("", "x-schema:modbus-schema.xml")
 # # print(tree.findall(.//ModbusInfo/..[@ModbusAddress='408906']))
 
-tree.write(PME_file1,encoding = "utf-8", xml_declaration=True,default_namespace="xmlns",method="xml")
+tree.write(PME_file1,encoding = "utf-8", xml_declaration=True)
 os.remove(Des_rename)
 os.remove(Des_ion_rename)
+
+# #now process the file for identation (NOTEPAD support)
+f = open(PME_file1,'r')
+p = open(PME_path1 + '/pm5300_back.xml','w')
+num_lines = sum(1 for line in open(PME_file1))
+print(num_lines)
+i=1
+while(i<=num_lines):
+    print >> p , f.readline()
+    i=i+1
+    
+f.close()
+p.close()
+
+#trying to read that file in codecs and remove the extra spaces
+f = codecs.open(PME_path1 + '/pm5300_back.xml','r','utf-8')
+p = codecs.open(PME_path1 + '/pm5300_back_back.xml','w','utf-8')
+    
+    
+num_lines = sum(1 for line in open(PME_path1 + '/pm5300_back.xml'))
+print(num_lines)
+i=1
+while(i<=num_lines):
+    a = f.readline()
+    if not [ord(c.decode('utf-8')) for c in a] == [13,10]:
+        # print([ord(c.decode('utf-8')) for c in a])
+        print >> p , a
+    i = i+1
+    
+f.close()
+p.close()   
+os.remove(PME_path1 + '/pm5300_back.xml')
+os.remove(PME_file1)
+prevName = PME_path1 + '/pm5300_back_back.xml'
+newName = PME_file1
+os.rename(prevName , newName )
+
+#now remove the files from the destination
+#os.remove(Des_rename)
+#os.remove(Des_ion_rename)
 
 
 # doing the replacing in config- translator
@@ -132,11 +172,49 @@ if os.path.exists(PME_file2) == True:
     for idx,node in enumerate(root):
         if len(node.attrib.values()) > 2:
             if node.attrib.values()[2] == '408906':
-                node.set("ModbusAddress","408905")
+                node.set("ModbusAddress","402401")
                 print node.attrib.values()[2]
     ET.register_namespace("", "x-schema:modbus-schema.xml")
     # print(tree.findall(.//ModbusInfo/..[@ModbusAddress='408906']))
-    tree.write(PME_file2,encoding = "utf-8", xml_declaration=True,default_namespace="xmlns",method="xml")
+    tree.write(PME_file2,encoding = "utf-8", xml_declaration=True)
+
+    #now process the file for identation (NOTEPAD support)
+    f = open(PME_file2,'r')
+    p = open(PME_path2 + '/pm5300_back.xml','w')
+    num_lines = sum(1 for line in open(PME_file2))
+    print(num_lines)
+    i=1
+    while(i<=num_lines):
+        print >> p , f.readline()
+        i=i+1
+    
+    f.close()
+    p.close()
+
+    #trying to read that file in codecs and remove the extra spaces
+    f = codecs.open(PME_path2 + '/pm5300_back.xml','r','utf-8')
+    p = codecs.open(PME_path2 + '/pm5300_back_back.xml','w','utf-8')
+    
+    
+    num_lines = sum(1 for line in open(PME_path2 + '/pm5300_back.xml'))
+    print(num_lines)
+    i=1
+    while(i<=num_lines):
+        a = f.readline()
+        if not [ord(c.decode('utf-8')) for c in a] == [13,10]:
+            # print([ord(c.decode('utf-8')) for c in a])
+            print >> p , a
+    	i = i+1
+    
+    f.close()
+    p.close()   
+    os.remove(PME_path2 + '/pm5300_back.xml')
+    os.remove(PME_file2)
+    prevName = PME_path2 + '/pm5300_back_back.xml'
+    newName = PME_file2
+    os.rename(prevName , newName )
+    
+    
     os.remove(Des_rename)
     os.remove(Des_ion_rename)
     exit()
